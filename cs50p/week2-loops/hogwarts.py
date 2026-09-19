@@ -14,4 +14,3 @@ students = ["Hermione", "Harry", "Ron"]
 # print students names using len() function
 for i in range(len(students)):
     print(i + 1, students[i])
-

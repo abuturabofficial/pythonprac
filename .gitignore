@@ -1,1 +1,5 @@
 .vscode/ltex.dictionary.en-US.txt
+myenv/
+__pycache__/
+*.pyc
+.env
