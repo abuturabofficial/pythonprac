@@ -81,16 +81,15 @@ console.print(table)
 # Bidding table
 table = Table(title="Bidding Information", min_width=70)
 
-# Showing green or red color for change value and percentage
+# Showing green or red color for current_price (change_value + change_percent)
 if "-" in change_value:
     price_change = Text(current_price)
     price_change.append(f" {change_value}{change_percent}", style="red")
-    table.add_column("Current Price", justify="center", style="grey11")
 else:
     price_change = Text(current_price)
     price_change.append(f" {change_value}{change_percent}", style="green")
-    table.add_column("Current Price", justify="center", style="grey11")
 
+table.add_column("Current Price", justify="center", style="grey11")
 table.add_column("Ask Price", justify="center", style="cyan")
 table.add_row(price_change, ask_price)
 # Print Table
