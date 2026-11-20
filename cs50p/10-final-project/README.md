@@ -13,3 +13,9 @@ The library I will use in my project. I have chosen this because:
 - Ideal for medium complexity projects.
 
 I didn't use `scrapy`, `selenium` or any other lib, due to added complexity of their workings and simpler nature of my own project.
+
+## The Tutorials I Have Watched
+
+Apart from [official documentation](https://beautiful-soup-4.readthedocs.io/en/latest/), I have used the following YouTube tutorials:
+
+- [Ultimate Web Scraping tutorial](https://www.youtube.com/watch?v=1227R6KY8Ts)
