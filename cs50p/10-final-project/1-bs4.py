@@ -17,10 +17,21 @@ soup = BeautifulSoup(html, "html.parser")
 # print(soup.prettify())
 print(soup.title.text)
 
-# Date of printing
-label = soup.find("div", class_="quote__date").get_text()
+# LDCP: last day closing price
+label = soup.find("div", class_="stats")
+stats_item = label.find_next(class_="stats_label", string="LDCP")
+stats_value = stats_item.find_next_sibling("div", class_="stats_value")
+last_day_closing_price = stats_value.get_text(strip=True)
+print("LDCP:", last_day_closing_price)
 
-_, fetch_date = label.split("^ As of")
+# Date of printing
+label = soup.find("div", class_="quote__date")
+if label is None:  # Error Checking in case element is not found
+    raise LookupError("quote__date element not found")
+
+quote_date = label.get_text(strip=True)
+
+_, fetch_date = quote_date.split("^ As of")
 
 print("Date:", fetch_date.strip())
 
@@ -29,6 +40,12 @@ label = soup.find("div", class_="stats_label", string="Open")
 stats_value = label.find_next_sibling("div", class_="stats_value")
 open_price = stats_value.get_text(strip=True)
 print("Open:", open_price)
+
+# Find High
+label = soup.find("div", class_="stats_label", string="High")
+stats_value = label.find_next_sibling("div", class_="stats_value")
+high_price = stats_value.get_text(strip=True)
+print("High Price:", high_price)
 
 # Find Low
 label = soup.find("div", class_="stats_label", string="Low")
@@ -71,9 +88,10 @@ print("Change Percent:", change_percent)
 table = Table(title=soup.title.text, min_width=70)
 table.add_column("Retrieval Time", justify="center", style="grey42")
 table.add_column("Open", justify="center", style="grey11")
+table.add_column("High", justify="center", style="grey11")
 table.add_column("Low", justify="center", style="grey11")
 table.add_column("Volume", justify="center", style="grey11")
-table.add_row(fetch_date, str(open_price), str(low_price), str(volume))
+table.add_row(fetch_date, str(open_price), str(high_price), str(low_price), str(volume))
 # Print Table
 console = Console()
 console.print(table)
@@ -90,8 +108,9 @@ else:
     price_change.append(f" {change_value}{change_percent}", style="green")
 
 table.add_column("Current Price", justify="center", style="grey11")
+table.add_column("LDCP", justify="center", style="grey42")
 table.add_column("Ask Price", justify="center", style="cyan")
-table.add_row(price_change, ask_price)
+table.add_row(price_change, last_day_closing_price, ask_price)
 # Print Table
 console = Console()
 console.print(table)
