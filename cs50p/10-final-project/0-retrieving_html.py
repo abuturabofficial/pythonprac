@@ -8,7 +8,7 @@ session = requests.session()
 headers = {
     "User-Agent": UserAgent().random,
     "Accept-Language": "en-US,en;q=0.9",
-    "Accept-Encoding": "gzip, defalte, br, zstd",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
     "Connection": "keep-alive",
     "Referer": "https://www.google.com",
 }
